@@ -1,0 +1,32 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Вход{% endblock %}
+
+{% block content %}
+
+    <div class="container col-lg-5">
+        <h2 class="text text-center">Вход в аккаунт</h2>
+
+        <div class="form-account-login">
+            <p class="form-control-text ml-5" style="padding-top: 20px">Пожалуйста, введите правильные имя пользователя и
+                пароль.</p>
+            <p class="form-control-text ml-5" style="padding-bottom: 10px; margin-top: -10px">Оба поля могут быть
+                чувствительны к регистру.</p>
+            <div class="row">
+                <div class="col-lg-3"></div>
+                <form method="POST" action="{% url 'login' %}" class="col-lg-6 justify-content-center">
+                    {% csrf_token %}
+                    <p class="form-control-text">Имя пользователя: <br>{{ form.username }}</p>
+                    <p class="form-control-text">Пароль: <br>{{ form.password }}</p>
+
+                    <button class="btn btn-primary d-block m-auto" style="width: 80px" type="submit">Войти</button>
+                    <span class="form-account-control">{{ error }}</span>
+                </form>
+            </div>
+
+            <p class="text mt-3 text-center">Нет аккаунта? <a class="text" style="color: #b2b2b2" href="{% url 'register' %}">Создайте
+                новый</a></p>
+        </div>
+    </div>
+
+{% endblock %}

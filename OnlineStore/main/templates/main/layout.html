@@ -1,0 +1,48 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          crossorigin="anonymous">
+
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg bg-light">
+
+    <ul class="navbar-nav mr-auto">
+        <li class="mr-3"><a href="{% url 'home' %}" class="text-decoration-none"><strong>Главная</strong></a></li>
+        {% if user.is_staff %}
+            <li class="mr-3"><a href="/admin" class="text-decoration-none"><strong>Админ панель</strong></a></li>
+        {% endif %}
+    </ul>
+    {% if user.is_authenticated %}
+        <p class="ml-auto mb-0">
+            <a href="{% url 'basket' %}" class="mr-3 text-decoration-none"><strong>Корзина ${{ cart_price }}</strong></a>
+            Вы вошли:
+            <a href="{% url 'account' %}" class="mr-3 text-decoration-none"><strong>{{ user.username }}</strong></a>
+            <a href="{% url 'logout' %}" class="text-decoration-none"><strong>Выйти</strong></a>
+        </p>
+    {% else %}
+        <a class="nav-account" href="{% url 'login' %}">
+            <div class="account">
+                <p class="ml-auto mb-0"><strong>Войдите</strong></p>
+            </div>
+        </a>
+    {% endif %}
+
+</nav>
+
+<main class="pl-3 pt-3">
+    {% block content %}
+    {% endblock %}
+</main>
+
+<footer></footer>
+
+</body>
+</html>

@@ -1,0 +1,35 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block content %}
+
+    <div class="mb-4 mt-3 row mr-0">
+
+        <div class="col-md-4 col">
+            <img src="{{ product.image.url }}" alt="" class="img-fluid"
+                 style="height: 400px; max-width: 500px; object-fit: cover; display: block; margin: auto">
+        </div>
+
+        <div class="col-md-4 col">
+            <h1 class="text-center mb-4">{{ product.name }}</h1>
+            <hr>
+            <h4 class="">{{ product.description }}</h4>
+        </div>
+
+        <div class="col-md-3 col mt-3">
+            <h2 class="ml-5">${{ product.price }}</h2>
+
+            <form method="post" id="add_to_cart_form">
+                {% csrf_token %}
+                <div class="row mt-4 mb-4">
+                    <div class="col-lg-2">{{ form.count }}</div>
+                    <button class="btn btn-primary btn-lg" style="height: 100%" id="add_to_cart">Добавить в корзину
+                    </button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+{% endblock %}

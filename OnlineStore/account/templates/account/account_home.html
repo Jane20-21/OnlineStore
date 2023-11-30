@@ -1,0 +1,33 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Личный кабинет{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <h2 class="mt-3 text-center">Привет, {{ user.username }}!</h2>
+
+        <h3 class="mb-2 text-center">Ваши заказы</h3>
+
+        <div class="row">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <hr>
+                {% for data in combined_data %}
+                    <h6>Заказ №{{ data.order.id }} - {{ data.order.date }} - ${{ data.order.cart.total_price }}</h6>
+
+                    {% for product in data.products %}
+                        {{ product.count }}
+                        {{ product.product.name }} -
+                        ${{ product.total_price }}
+                        <br>
+
+                    {% endfor %}
+                    <hr>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

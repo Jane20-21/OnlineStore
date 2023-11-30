@@ -1,0 +1,63 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Корзина{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h2 class="mb-4 mt-3 text-center">Корзина</h2>
+        <hr>
+        <div class="row">
+            <div class="col-lg-7">
+
+                {% if products %}
+                    {% for product in products %}
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <img src="{{ product.product.image.url }}" alt="aa" class="img-fluid"
+                                     style="height: 100px; max-width: 200px; object-fit: cover; display: block; margin: auto">
+                            </div>
+
+                            <div class="col-lg-6">
+                                <h5>{{ product.product.name }}<br></h5>
+                                <h6>{{ product.product.short_description }}</h6>
+                            </div>
+
+                            <div class="col-lg-3">
+                                <h5>${{ product.product.price }}</h5><br>
+                                <div class="row">
+                                    <form method="post">
+                                        {% csrf_token %}
+                                        <button name="{{ product.id }} -" class="btn pt-0 pb-1"
+                                                style="background-color:#E2E6EA;">-
+                                        </button>
+                                    </form>
+                                    <p class="ml-3 mr-3 pt-1 pb-0 mb-1">{{ product.count }}</p><br>
+                                    <form method="post">
+                                        {% csrf_token %}
+                                        <button name="{{ product.id }} +" class="btn pt-0 pb-1"
+                                                style="background-color:#E2E6EA;">+
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                    {% endfor %}
+                {% else %}
+                    <h4>Корзина пуста</h4>
+                {% endif %}
+            </div>
+
+            <div class="col-lg-4 ml-5">
+                <h5 class="mb-3">Всего товаров: {{ cart.total_count }}</h5>
+                <h3 class="mb-3">${{ cart.total_price }}</h3>
+
+                <form method="post">
+                    {% csrf_token %}
+                    <button class="btn btn-primary btn-lg">Оформить заказ</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

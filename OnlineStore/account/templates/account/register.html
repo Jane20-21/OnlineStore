@@ -1,0 +1,49 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Регистрация{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <h2 class="text text-center">Регистрация</h2>
+
+        <form method="POST" action="">
+            <div class="row">
+                <div class="col-lg-3"></div>
+
+                <div class="form-account mt-3 col-lg-6">
+                    <div class="row">
+                        <div class="col-lg-2"></div>
+                        {% csrf_token %}
+                        <div class="col-lg-8">
+                            <p class="form-control-text">Имя пользователя: <br>{{ form.username }}</p>
+                            <p class="form-control-text">Email: <br>{{ form.email }}</p>
+                            <p class="form-control-text">Пароль: <br>{{ form.password1 }}</p>
+                            <p class="form-control-text">Повторите пароль: <br>{{ form.password2 }}</p>
+                        </div>
+                    </div>
+
+                    <ul>
+                        <li class="pb-2">Ваш пароль не должен совпадать с вашим именем или другой персональной
+                            информацией
+                            или
+                            быть слишком похожим на нее.
+                        </li>
+                        <li class="pb-2">Ваш пароль должен содержать как минимум 8 символов.</li>
+                        <li class="pb-2">Ваш пароль не может быть одним из широко распространенных паролей.</li>
+                        <li class="pb-2">Ваш пароль не может состоять только из цифр.</li>
+                    </ul>
+
+                    <button class="btn btn-primary d-block m-auto" type="submit">Создать Аккаунт</button>
+                    <span class="form-account-control">{{ error }}</span>
+
+                    <p class="text mt-3 text-center">Уже есть аккаунт? <a class="text" style="color: #b2b2b2"
+                                                              href="{% url 'login' %}">Войти
+                        в личный кабинет</a>
+                    </p>
+                </div>
+            </div>
+        </form>
+    </div>
+
+{% endblock %}
